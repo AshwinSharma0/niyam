@@ -1,0 +1,359 @@
+/* Statistics Page Styles */
+
+/* Filter Controls */
+.filter-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.time-range-filter {
+    display: flex;
+    border-radius: var(--radius-lg);
+    background-color: var(--card-bg);
+    overflow: hidden;
+}
+
+.time-range-btn {
+    background: none;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.time-range-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-theme .time-range-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.time-range-btn.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+.habit-filter select {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-lg);
+    border: none;
+    background-color: var(--card-bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    width: 200px;
+    cursor: pointer;
+}
+
+/* Stats Cards Grid Layout */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.trend-chart-card {
+    grid-column: 1 / 3;
+}
+
+.calendar-card {
+    overflow: visible;
+    margin-bottom: 40px;
+}
+
+.performance-card {
+    position: relative;
+    z-index: 1;
+    clear: both;
+}
+
+/* Stats Cards */
+.stats-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.stats-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.stats-card-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chart-type-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.chart-type-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-theme .chart-type-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chart-type-btn.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    height: 350px;
+    width: 100%;
+}
+
+/* Summary Cards Enhancement */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+}
+
+/* Calendar Styling */
+#habit-calendar {
+    max-height: 350px;
+    overflow: auto;
+}
+
+#habit-calendar .fc-view {
+    background-color: var(--bg);
+    border-radius: var(--radius-md);
+}
+
+#habit-calendar .fc-daygrid-day {
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+#habit-calendar .fc-day-today {
+    background-color: rgba(91, 33, 182, 0.1) !important;
+}
+
+#habit-calendar .fc-header-toolbar {
+    margin-bottom: 1rem !important;
+}
+
+/* Reset FC button styles to match our theme */
+#habit-calendar .fc-button {
+    background-color: var(--bg) !important;
+    border-color: var(--border) !important;
+    color: var(--text) !important;
+}
+
+#habit-calendar .fc-button-active {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: white !important;
+}
+
+/* Performance Table */
+.performance-table-container {
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.performance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.performance-table th,
+.performance-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.performance-table th {
+    font-weight: 600;
+    color: var(--text-light-mode);
+    position: sticky;
+    top: 0;
+    background-color: var(--card-bg);
+    z-index: 1;
+}
+
+.performance-table tbody tr {
+    transition: background-color var(--transition-fast);
+}
+
+.performance-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.dark-theme .performance-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Insights Section */
+.insights-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.insight-item {
+    background-color: var(--bg);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: transform var(--transition-normal);
+}
+
+.insight-item:hover {
+    transform: translateY(-5px);
+}
+
+.insight-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.insight-icon i {
+    font-size: 1.25rem;
+    color: white;
+}
+
+.insight-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.insight-content p {
+    color: var(--text-light-mode);
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.insight-content strong {
+    color: var(--text);
+}
+
+/* Custom colors for specific insights */
+.insight-item:nth-child(2) .insight-icon {
+    background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+}
+
+.insight-item:nth-child(3) .insight-icon {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.insight-item:nth-child(4) .insight-icon {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+/* FullCalendar specific fixes */
+.fc .fc-scrollgrid {
+    border-collapse: separate;
+}
+
+.fc .fc-scrollgrid-section-header, 
+.fc .fc-scrollgrid-section-body {
+    overflow: visible !important;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+    border: 1px solid var(--border);
+}
+
+.fc-view-harness {
+    height: auto !important;
+    max-height: 300px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .calendar-card,
+    .performance-card {
+        width: 100%;
+        overflow: visible;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .time-range-filter {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .time-range-btn {
+        flex: 1;
+        text-align: center;
+        padding: 0.75rem 0;
+    }
+    
+    .habit-filter {
+        width: 100%;
+    }
+    
+    .habit-filter select {
+        width: 100%;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+    
+    #habit-calendar {
+        height: 400px;
+    }
+} 

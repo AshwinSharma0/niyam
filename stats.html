@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics | Niyam</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Full Calendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/stats.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    
+    <!-- App Wrapper -->
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <span>Niyam</span>
+                </a>
+                <button class="sidebar-close" aria-label="Close sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="stats.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Statistics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="sidebar-theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="page-title">
+                    <h1>Statistics</h1>
+                    <p>Track your progress over time</p>
+                </div>
+                
+                <div class="user-actions">
+                    <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="dropdown">
+                        <button class="user-menu">
+                            <div class="avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="settings.html">Settings</a>
+                            <a href="login.html">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Stats Content -->
+            <div class="dashboard-content">
+                <!-- Time Range Filter -->
+                <div class="filter-controls">
+                    <div class="time-range-filter">
+                        <button class="time-range-btn active" data-range="week">Week</button>
+                        <button class="time-range-btn" data-range="month">Month</button>
+                        <button class="time-range-btn" data-range="year">Year</button>
+                        <button class="time-range-btn" data-range="all">All Time</button>
+                    </div>
+                    
+                    <div class="habit-filter">
+                        <select id="habit-filter">
+                            <option value="all">All Habits</option>
+                            <!-- Dynamic options will be inserted here -->
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Summary Cards -->
+                <section class="summary-cards">
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="summary-data">
+                            <h3>Completion Rate</h3>
+                            <div class="stat-value" id="completion-rate">87%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="summary-data">
+                            <h3>Best Streak</h3>
+                            <div class="stat-value" id="best-streak">14 days</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="summary-data">
+                            <h3>Total Completions</h3>
+                            <div class="stat-value" id="total-completions">126</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="summary-data">
+                            <h3>Perfect Days</h3>
+                            <div class="stat-value" id="perfect-days">18 days</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Main Charts Section -->
+                <section class="stats-grid">
+                    <!-- Trend Chart -->
+                    <div class="stats-card trend-chart-card">
+                        <div class="stats-card-header">
+                            <h2>Completion Trend</h2>
+                            <div class="chart-controls">
+                                <button class="chart-type-btn active" data-type="line">
+                                    <i class="fas fa-chart-line"></i>
+                                </button>
+                                <button class="chart-type-btn" data-type="bar">
+                                    <i class="fas fa-chart-bar"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="trend-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Category Breakdown -->
+                    <div class="stats-card category-chart-card">
+                        <div class="stats-card-header">
+                            <h2>Category Breakdown</h2>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="category-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Heatmap Calendar -->
+                    <div class="stats-card calendar-card">
+                        <div class="stats-card-header">
+                            <h2>Habit Calendar</h2>
+                        </div>
+                        <div id="habit-calendar"></div>
+                    </div>
+                    
+                    <!-- Habit Performance -->
+                    <div class="stats-card performance-card">
+                        <div class="stats-card-header">
+                            <h2>Habit Performance</h2>
+                        </div>
+                        <div class="performance-table-container">
+                            <table class="performance-table">
+                                <thead>
+                                    <tr>
+                                        <th>Habit</th>
+                                        <th>Category</th>
+                                        <th>Completion Rate</th>
+                                        <th>Current Streak</th>
+                                        <th>Best Streak</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="performance-table-body">
+                                    <!-- Table will be dynamically populated -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Insights Section -->
+                <section class="stats-card insights-card">
+                    <div class="stats-card-header">
+                        <h2>Insights & Recommendations</h2>
+                    </div>
+                    
+                    <div class="insights-container">
+                        <div class="insight-item">
+                            <div class="insight-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h3>Most Consistent Habit</h3>
+                                <p>Your most consistent habit is <strong id="consistent-habit">Morning Workout</strong> with a <strong>95%</strong> completion rate.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item">
+                            <div class="insight-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h3>Needs Improvement</h3>
+                                <p>Your <strong id="struggling-habit">Reading</strong> habit has only a <strong>43%</strong> completion rate. Try setting a specific time each day.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item">
+                            <div class="insight-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h3>Best Day of the Week</h3>
+                                <p>You're most productive on <strong id="best-day">Mondays</strong> with a <strong>92%</strong> completion rate across all habits.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item">
+                            <div class="insight-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h3>Progress Trend</h3>
+                                <p>Your overall completion rate is <strong id="trend-direction">improving</strong> by <strong id="trend-percentage">12%</strong> compared to last month.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/stats.js"></script>
+    <script>
+        // Ensure all links and functionality work correctly
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up navigation links for all pages
+            const allLinks = document.querySelectorAll('a');
+            allLinks.forEach(link => {
+                // Ensure links don't break on click
+                link.addEventListener('click', function(e) {
+                    const href = link.getAttribute('href');
+                    // Only prevent default for # links (like tabs)
+                    if (href === '#') {
+                        e.preventDefault();
+                    }
+                });
+            });
+            
+            // Ensure dropdown menus work
+            const dropdownButtons = document.querySelectorAll('.dropdown button');
+            dropdownButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const dropdownContent = this.nextElementSibling;
+                    if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
+                        dropdownContent.classList.toggle('show');
+                    }
+                });
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                const dropdowns = document.querySelectorAll('.dropdown-content');
+                dropdowns.forEach(dropdown => {
+                    if (!e.target.closest('.dropdown') && dropdown.classList.contains('show')) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+            });
+            
+            // If charts or calendars aren't initializing properly, attempt to reinitialize them
+            if (typeof Chart !== 'undefined' && document.getElementById('trend-chart')) {
+                // Attempt to initialize any charts that didn't get initialized
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html> 

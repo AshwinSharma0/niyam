@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Niyam</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    
+    <!-- App Wrapper -->
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <span>Niyam</span>
+                </a>
+                <button class="sidebar-close" aria-label="Close sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="sidebar-links">
+                    <li class="sidebar-link active">
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-link">
+                        <a href="stats.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Statistics</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-link">
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-link">
+                        <a href="login.html">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="sidebar-theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="page-title">
+                    <h1>Dashboard</h1>
+                    <p id="current-date">Loading date...</p>
+                </div>
+                
+                <div class="user-actions">
+                    <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="dropdown">
+                        <button class="user-menu" id="profile-dropdown-btn">
+                            <div class="avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </button>
+                        <div class="dropdown-content" id="profile-dropdown-menu">
+                            <a href="settings.html">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                            <a href="index.html">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Motivational Quote -->
+                <section class="quote-card">
+                    <div class="quote-bg">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p id="daily-quote">"The secret of getting ahead is getting started."</p>
+                </section>
+                
+                <!-- Progress Summary Cards -->
+                <section class="summary-cards">
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="summary-data">
+                            <h3>Daily Progress</h3>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-outer">
+                                    <div class="progress-bar-inner" id="daily-progress-bar" style="width: 0%"></div>
+                                </div>
+                                <span id="daily-progress-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="summary-data">
+                            <h3>Current Streak</h3>
+                            <div class="streak-count">
+                                <span id="streak-count">0</span>
+                                <span>days</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="summary-data">
+                            <h3>Completion Rate</h3>
+                            <div class="completion-rate">
+                                <span id="completion-rate">0%</span>
+                                <span>last 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Habit List Section -->
+                <section class="habit-list-section">
+                    <div class="section-header">
+                        <h2>Today's Habits</h2>
+                        <button class="add-habit-btn" id="add-habit-btn">
+                            <i class="fas fa-plus"></i>
+                            Add Habit
+                        </button>
+                    </div>
+                    
+                    <div class="habit-list" id="habit-list">
+                        <!-- Habits will be dynamically inserted here -->
+                        <div class="empty-state">
+                            <img src="https://illustrations.popsy.co/amber/meditation.svg" alt="Start your habit journey" width="200">
+                            <h3>No habits added yet</h3>
+                            <p>Add your first habit to start tracking your progress</p>
+                            <button class="btn primary-btn add-habit-btn">
+                                <i class="fas fa-plus"></i>
+                                Add Your First Habit
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Weekly Overview -->
+                <section class="weekly-overview">
+                    <h2>Weekly Overview</h2>
+                    <div class="chart-container">
+                        <canvas id="weekly-chart"></canvas>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Add Habit Modal -->
+    <div class="modal" id="add-habit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Habit</h2>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-habit-form">
+                    <div class="form-group">
+                        <label for="habit-name">Habit Name</label>
+                        <input type="text" id="habit-name" placeholder="e.g. Morning Workout" maxlength="50" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="habit-category">Category</label>
+                        <select id="habit-category">
+                            <option value="health">Health & Fitness</option>
+                            <option value="productivity">Productivity</option>
+                            <option value="mindfulness">Mindfulness</option>
+                            <option value="learning">Learning</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="habit-reminder">Reminder (Optional)</label>
+                        <input type="time" id="habit-reminder">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary-btn" id="cancel-habit">Cancel</button>
+                        <button type="submit" class="btn primary-btn">Add Habit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Habit Modal -->
+    <div class="modal" id="edit-habit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Habit</h2>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-habit-form">
+                    <input type="hidden" id="edit-habit-id">
+                    <div class="form-group">
+                        <label for="edit-habit-name">Habit Name</label>
+                        <input type="text" id="edit-habit-name" placeholder="e.g. Morning Workout" maxlength="50" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-habit-category">Category</label>
+                        <select id="edit-habit-category">
+                            <option value="health">Health & Fitness</option>
+                            <option value="productivity">Productivity</option>
+                            <option value="mindfulness">Mindfulness</option>
+                            <option value="learning">Learning</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-habit-reminder">Reminder (Optional)</label>
+                        <input type="time" id="edit-habit-reminder">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn danger-btn" id="delete-habit">Delete</button>
+                        <button type="submit" class="btn primary-btn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confetti Animation for Streak Milestone -->
+    <canvas id="confetti-canvas"></canvas>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 

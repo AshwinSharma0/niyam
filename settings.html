@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Niyam</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    
+    <!-- App Wrapper -->
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <span>Niyam</span>
+                </a>
+                <button class="sidebar-close" aria-label="Close sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="stats.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Statistics</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="sidebar-theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="page-title">
+                    <h1>Settings</h1>
+                    <p>Customize your experience</p>
+                </div>
+                
+                <div class="user-actions">
+                    <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="dropdown">
+                        <button class="user-menu">
+                            <div class="avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="settings.html">Settings</a>
+                            <a href="login.html">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Settings Content -->
+            <div class="dashboard-content">
+                <!-- Settings Sections -->
+                <div class="settings-container">
+                    <!-- Profile Settings -->
+                    <section class="settings-section">
+                        <h2><i class="fas fa-user-circle"></i> Profile Settings</h2>
+                        
+                        <div class="profile-settings">
+                            <div class="profile-photo">
+                                <div class="avatar-large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <button class="btn secondary-btn">Change Photo</button>
+                            </div>
+                            
+                            <div class="profile-form">
+                                <div class="form-group">
+                                    <label for="display-name">Display Name</label>
+                                    <input type="text" id="display-name" value="User">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" value="user@example.com">
+                                </div>
+                                
+                                <button class="btn primary-btn save-profile">Save Changes</button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Appearance Settings -->
+                    <section class="settings-section">
+                        <h2><i class="fas fa-palette"></i> Appearance</h2>
+                        
+                        <div class="setting-option">
+                            <div>
+                                <h3>Theme</h3>
+                                <p>Choose between light and dark mode</p>
+                            </div>
+                            <div class="theme-selector">
+                                <button class="theme-option light-theme-btn" data-theme="light">
+                                    <div class="theme-preview light"></div>
+                                    <span>Light</span>
+                                </button>
+                                <button class="theme-option dark-theme-btn" data-theme="dark">
+                                    <div class="theme-preview dark"></div>
+                                    <span>Dark</span>
+                                </button>
+                                <button class="theme-option system-theme-btn" data-theme="system">
+                                    <div class="theme-preview system"></div>
+                                    <span>System</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-option">
+                            <div>
+                                <h3>Animation</h3>
+                                <p>Toggle UI animations</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="animations-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-option">
+                            <div>
+                                <h3>Custom Cursor</h3>
+                                <p>Enable custom cursor on desktop</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="cursor-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </section>
+                    
+                    <!-- Notification Settings -->
+                    <section class="settings-section">
+                        <h2><i class="fas fa-bell"></i> Notifications</h2>
+                        
+                        <div class="setting-option">
+                            <div>
+                                <h3>Habit Reminders</h3>
+                                <p>Receive notifications for uncompleted habits</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="reminder-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-option">
+                            <div>
+                                <h3>Streak Milestones</h3>
+                                <p>Celebrate when you reach habit streaks</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="streak-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-option">
+                            <div>
+                                <h3>Daily Motivation</h3>
+                                <p>Show motivational quotes on dashboard</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="quote-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </section>
+                    
+                    <!-- Data Settings -->
+                    <section class="settings-section">
+                        <h2><i class="fas fa-database"></i> Data Management</h2>
+                        
+                        <div class="data-actions">
+                            <div class="data-action">
+                                <h3>Export Your Data</h3>
+                                <p>Download all your habit data as JSON</p>
+                                <button class="btn secondary-btn" id="export-data">
+                                    <i class="fas fa-download"></i> Export Data
+                                </button>
+                            </div>
+                            
+                            <div class="data-action">
+                                <h3>Import Data</h3>
+                                <p>Restore previously exported data</p>
+                                <label class="btn secondary-btn" for="import-file">
+                                    <i class="fas fa-upload"></i> Import Data
+                                </label>
+                                <input type="file" id="import-file" accept=".json" hidden>
+                            </div>
+                            
+                            <div class="data-action danger">
+                                <h3>Reset All Data</h3>
+                                <p>Delete all your habits and history (cannot be undone)</p>
+                                <button class="btn danger-btn" id="reset-data">
+                                    <i class="fas fa-trash-alt"></i> Reset All Data
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Account Settings -->
+                    <section class="settings-section">
+                        <h2><i class="fas fa-shield-alt"></i> Account</h2>
+                        
+                        <div class="account-actions">
+                            <div class="account-action">
+                                <h3>Change Password</h3>
+                                <button class="btn secondary-btn" id="change-password">
+                                    Change Password
+                                </button>
+                            </div>
+                            
+                            <div class="account-action danger">
+                                <h3>Delete Account</h3>
+                                <p>Permanently delete your account and all data</p>
+                                <button class="btn danger-btn" id="delete-account">
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- About Section -->
+                    <section class="settings-section">
+                        <h2><i class="fas fa-info-circle"></i> About</h2>
+                        
+                        <div class="about-content">
+                            <div class="app-info">
+                                <h3>Niyam</h3>
+                                <p>Version 1.0.0</p>
+                                <p>A modern habit tracking application to help you build better habits and achieve your goals.</p>
+                            </div>
+                            
+                            <div class="credit-links">
+                                <a href="#" target="_blank">Terms of Service</a>
+                                <a href="#" target="_blank">Privacy Policy</a>
+                                <a href="https://github.com/" target="_blank">GitHub</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Change Password Modal -->
+    <div class="modal" id="password-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Password</h2>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="password-form">
+                    <div class="form-group">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm New Password</label>
+                        <input type="password" id="confirm-password" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary-btn password-cancel">Cancel</button>
+                        <button type="submit" class="btn primary-btn">Update Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Reset Data Confirmation Modal -->
+    <div class="modal" id="reset-confirm-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Reset All Data</h2>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="confirmation-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Are you sure you want to reset all data?</h3>
+                    <p>This will permanently delete all your habits, progress, and history. This action cannot be undone.</p>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn secondary-btn reset-cancel">Cancel</button>
+                    <button class="btn danger-btn confirm-reset">Yes, Reset Everything</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Account Confirmation Modal -->
+    <div class="modal" id="delete-account-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Delete Account</h2>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="confirmation-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Are you sure you want to delete your account?</h3>
+                    <p>This will permanently delete your account and all associated data. This action cannot be undone.</p>
+                    
+                    <div class="form-group">
+                        <label for="delete-confirm">Type "DELETE" to confirm</label>
+                        <input type="text" id="delete-confirm" placeholder="DELETE" required>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn secondary-btn delete-cancel">Cancel</button>
+                    <button class="btn danger-btn confirm-delete" disabled>Delete My Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Toast Notification -->
+    <div class="toast success-toast" id="success-toast">
+        <i class="fas fa-check-circle"></i>
+        <span class="toast-message">Settings saved successfully!</span>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/settings.js"></script>
+    <script>
+        // Add functionality to the settings form
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle all forms to prevent submission issues
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Show a success message
+                    const successAlert = document.createElement('div');
+                    successAlert.className = 'success-alert';
+                    successAlert.innerHTML = `
+                        <div class="alert-content">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Settings saved successfully!</p>
+                        </div>
+                    `;
+                    
+                    // Add to document
+                    document.body.appendChild(successAlert);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        successAlert.classList.add('show');
+                        
+                        setTimeout(() => {
+                            successAlert.classList.remove('show');
+                            setTimeout(() => {
+                                successAlert.remove();
+                            }, 300);
+                        }, 2000);
+                    }, 100);
+                });
+            });
+            
+            // Handle tabs in the settings page
+            const tabButtons = document.querySelectorAll('.settings-tab-btn');
+            const tabContents = document.querySelectorAll('.settings-tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Ensure dropdown functionality
+            const dropdownButtons = document.querySelectorAll('.dropdown button');
+            dropdownButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const dropdownContent = this.nextElementSibling;
+                    if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
+                        dropdownContent.classList.toggle('show');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .success-alert {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .success-alert.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-content i {
+            font-size: 1.2rem;
+        }
+        
+        .alert-content p {
+            margin: 0;
+            font-weight: 500;
+        }
+    </style>
+</body>
+</html> 
