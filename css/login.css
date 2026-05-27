@@ -417,6 +417,95 @@ body {
     transform: translateY(0);
 }
 
+.modal {
+    padding: 1rem;
+}
+
+.modal-content {
+    width: min(520px, 100%);
+    max-width: 520px;
+    padding: 1.6rem;
+    text-align: left;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.modal-close {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.modal-close:hover {
+    background-color: rgba(91, 33, 182, 0.1);
+    transform: scale(1.05);
+}
+
+.modal-body form {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.form-group label {
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    min-height: 48px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    padding: 0.95rem 1rem;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+}
+
+.form-actions .btn {
+    min-width: 140px;
+}
+
+.form-actions .secondary-btn {
+    background-color: transparent;
+    border: 1px solid var(--border);
+}
+
+.form-actions .secondary-btn:hover {
+    background-color: rgba(91, 33, 182, 0.06);
+}
+
 .success-icon {
     width: 80px;
     height: 80px;
