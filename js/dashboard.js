@@ -25,6 +25,18 @@ const categoryIcons = {
     other: 'fa-star'
 };
 
+// Protect dashboard: redirect to login if not logged in
+const isLoggedIn = localStorage.getItem('loggedIn');
+if (!isLoggedIn) {
+    window.location.href = 'login.html';
+}
+
+// Logout function (global)
+function logout() {
+    localStorage.removeItem('loggedIn');
+    window.location.href = 'login.html';
+}
+
 // DOM Elements
 const currentDateElement = document.getElementById('current-date');
 const habitListElement = document.getElementById('habit-list');

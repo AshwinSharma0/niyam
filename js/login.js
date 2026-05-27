@@ -133,132 +133,77 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function handleLogin(e) {
         e.preventDefault();
-        
+
         const email = document.getElementById('login-email').value.trim();
         const password = document.getElementById('login-password').value;
-        
+
         if (!email) {
             showError('Please enter your email address');
             return;
         }
-        
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             showError('Please enter a valid email address');
             return;
         }
-        
+
         if (!password) {
             showError('Please enter your password');
             return;
         }
-        
+
         if (password.length < 6) {
             showError('Password must be at least 6 characters long');
             return;
         }
-        
-        showLoading();
 
-        try {
-            const response = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
+        // Client-side authentication using localStorage
+        const savedUser = JSON.parse(localStorage.getItem('user'));
 
-            const data = await response.json();
-            hideLoading();
-
-            if (!response.ok) {
-                const message = data.message || (data.errors && data.errors[0]?.msg) || 'Login failed';
-                showError(message);
-                return;
-            }
-
-            localStorage.setItem('niyam-token', data.token);
-            localStorage.setItem('niyam-user', JSON.stringify(data.user || {}));
-            successMessage.textContent = 'Login successful! Redirecting to dashboard...';
-            successBtn.textContent = 'Continue to Dashboard';
-            successBtn.dataset.action = 'redirect';
-            showModal(successModal);
-        } catch (error) {
-            hideLoading();
-            showError('Unable to connect to the server. Please try again.');
+        if (
+            savedUser &&
+            savedUser.email === email &&
+            savedUser.password === password
+        ) {
+            alert('Login Successful!');
+            localStorage.setItem('loggedIn', 'true');
+            window.location.href = 'dashboard.html';
+        } else {
+            showError('Invalid Email or Password');
         }
     }
     
     async function handleRegister(e) {
         e.preventDefault();
-        
-        const username = document.getElementById('register-name').value.trim();
-        const email = document.getElementById('register-email').value.trim();
+
+        const name = document.getElementById('register-name').value;
+        const email = document.getElementById('register-email').value;
         const password = document.getElementById('register-password').value;
-        const termsChecked = document.getElementById('agree-terms').checked;
-        
-        if (!username) {
-            showError('Please enter your full name');
+
+        const termsChecked = document.getElementById('agree-terms') ? document.getElementById('agree-terms').checked : true;
+
+        if (!name || !email || !password) {
+            showError('Please fill in all required fields');
             return;
         }
-        
-        if (!email) {
-            showError('Please enter your email address');
-            return;
-        }
-        
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showError('Please enter a valid email address');
-            return;
-        }
-        
-        if (!password) {
-            showError('Please enter a password');
-            return;
-        }
-        
-        if (password.length < 6) {
-            showError('Password must be at least 6 characters long');
-            return;
-        }
-        
+
         if (!termsChecked) {
             showError('Please agree to the Terms of Service and Privacy Policy');
             return;
         }
-        
-        showLoading();
 
-        try {
-            const response = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, email, password })
-            });
+        const user = {
+            name,
+            email,
+            password
+        };
 
-            const data = await response.json();
-            hideLoading();
+        localStorage.setItem('user', JSON.stringify(user));
 
-            if (!response.ok) {
-                const message = data.message || (data.errors && data.errors[0]?.msg) || 'Registration failed';
-                showError(message);
-                return;
-            }
+        alert('Account Created Successfully!');
 
-            localStorage.setItem('niyam-token', data.token);
-            localStorage.setItem('niyam-user', JSON.stringify(data.user || {}));
-            successMessage.textContent = 'Your account has been created successfully!';
-            successBtn.textContent = 'Get Started';
-            successBtn.dataset.action = 'redirect';
-            showModal(successModal);
-        } catch (error) {
-            hideLoading();
-            showError('Unable to connect to the server. Please try again.');
-        }
+        window.location.href = 'login.html';
     }
     
     function handleForgotPassword(e) {
