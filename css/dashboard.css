@@ -128,8 +128,32 @@
 .main-content {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     margin-left: 280px;
     transition: margin-left var(--transition-normal);
+    min-height: 100vh;
+    padding: 0 1.5rem 2rem;
+}
+
+.dashboard-content,
+.settings-container {
+    width: min(1180px, 100%);
+    max-width: 1180px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.chart-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.weekly-overview,
+.quote-card,
+.summary-cards,
+.settings-section {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Top Bar */
@@ -501,6 +525,14 @@
 
 .chart-container {
     min-height: 280px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
 }
 
 @media (max-width: 1024px) {
