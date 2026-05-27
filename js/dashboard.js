@@ -47,6 +47,10 @@ const editHabitModal = document.getElementById('edit-habit-modal');
 const addHabitForm = document.getElementById('add-habit-form');
 const editHabitForm = document.getElementById('edit-habit-form');
 const dailyQuoteElement = document.getElementById('daily-quote');
+const dashboardGreeting = document.getElementById('dashboard-greeting');
+const dashboardSubtitle = document.getElementById('dashboard-subtitle');
+const quickAddHabitBtn = document.getElementById('quick-add-habit');
+const quickViewStatsBtn = document.getElementById('quick-view-stats');
 const dailyProgressBar = document.getElementById('daily-progress-bar');
 const dailyProgressText = document.getElementById('daily-progress-text');
 const streakCountElement = document.getElementById('streak-count');
@@ -75,6 +79,7 @@ let weeklyChart = null;
 function init() {
     setCurrentDate();
     loadData();
+    updateDashboardHeader();
     updateQuote();
     renderHabits();
     updateProgress();
@@ -83,6 +88,25 @@ function init() {
     initTheme();
     setupMobileInteraction();
     setupCustomCursor();
+}
+
+function updateDashboardHeader() {
+    const savedUser = JSON.parse(localStorage.getItem('user')) || {};
+    const name = savedUser.name || 'champion';
+    const greetings = ['Great to see you', 'Ready for a strong day', 'Let’s crush today'];
+    const greetingText = greetings[Math.floor(Math.random() * greetings.length)];
+
+    if (dashboardGreeting) {
+        dashboardGreeting.textContent = `Hi, ${name.split(' ')[0]}!`;
+    }
+
+    if (dashboardSubtitle) {
+        dashboardSubtitle.textContent = `${greetingText} — your habits are your daily wins.`;
+    }
+
+    if (dailyQuoteElement) {
+        updateQuote();
+    }
 }
 
 // Set current date
@@ -826,6 +850,17 @@ function setupEventListeners() {
     // Add habit button
     if (addHabitBtn) {
         addHabitBtn.addEventListener('click', openAddModal);
+    }
+    
+    // Quick header button
+    if (quickAddHabitBtn) {
+        quickAddHabitBtn.addEventListener('click', openAddModal);
+    }
+
+    if (quickViewStatsBtn) {
+        quickViewStatsBtn.addEventListener('click', () => {
+            window.location.href = 'stats.html';
+        });
     }
     
     // Empty state add button

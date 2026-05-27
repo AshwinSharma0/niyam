@@ -272,3 +272,236 @@
 .dashboard-content {
     padding: 1.5rem;
 }
+
+.dashboard-welcome {
+    margin-bottom: 1.5rem;
+}
+
+.welcome-card {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: linear-gradient(135deg, rgba(91, 33, 182, 0.12), rgba(16, 185, 129, 0.1));
+    border: 1px solid rgba(91, 33, 182, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: 0 20px 40px rgba(91, 33, 182, 0.08);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.welcome-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 28px 60px rgba(91, 33, 182, 0.12);
+}
+
+.welcome-copy {
+    flex: 1 1 320px;
+}
+
+.welcome-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-full);
+    background-color: rgba(91, 33, 182, 0.14);
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.welcome-card h2 {
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.welcome-card p {
+    color: var(--text-light-mode);
+    font-size: 1rem;
+    max-width: 520px;
+}
+
+.welcome-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex: 0 1 240px;
+}
+
+.welcome-actions .btn {
+    width: 100%;
+}
+
+.quote-card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    min-height: 170px;
+}
+
+.quote-bg {
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    width: 120px;
+    height: 120px;
+    background-color: rgba(91, 33, 182, 0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quote-bg i {
+    color: rgba(91, 33, 182, 0.65);
+    font-size: 2rem;
+}
+
+.quote-card p {
+    position: relative;
+    z-index: 1;
+    font-size: 1.2rem;
+    color: var(--text);
+    max-width: 680px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.1);
+}
+
+.summary-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(91, 33, 182, 0.08);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.summary-data h3 {
+    margin-bottom: 0.75rem;
+}
+
+.progress-bar-container,
+.streak-count,
+.completion-rate {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.progress-bar-outer {
+    flex: 1;
+    height: 12px;
+    border-radius: 999px;
+    background-color: rgba(91, 33, 182, 0.1);
+    overflow: hidden;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.4s ease;
+}
+
+.habit-list-section {
+    margin-bottom: 1.5rem;
+}
+
+.habit-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.empty-state h3 {
+    margin-top: 0.5rem;
+}
+
+.weekly-overview {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.weekly-overview h2 {
+    margin-bottom: 1rem;
+}
+
+.chart-container {
+    min-height: 280px;
+}
+
+@media (max-width: 1024px) {
+    .summary-cards {
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .app-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+        z-index: 200;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .dashboard-welcome,
+    .welcome-card {
+        width: 100%;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+}
