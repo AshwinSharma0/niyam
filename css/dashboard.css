@@ -435,6 +435,24 @@
     margin-bottom: 1.5rem;
 }
 
+.habit-list-section .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.habit-list-section .section-header h2 {
+    margin: 0;
+}
+
+.habit-list-section .add-habit-btn {
+    padding: 0.75rem 1.2rem;
+    font-size: 0.95rem;
+    border-radius: var(--radius-lg);
+}
+
 .habit-list {
     display: grid;
     gap: 1rem;
@@ -446,10 +464,19 @@
     align-items: center;
     text-align: center;
     gap: 1rem;
-    padding: 2rem;
+    padding: 1.75rem;
     background-color: var(--card-bg);
     border: 1px dashed var(--border);
     border-radius: var(--radius-lg);
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.empty-state img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    display: block;
 }
 
 .empty-state h3 {
