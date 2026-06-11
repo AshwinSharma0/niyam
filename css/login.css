@@ -481,7 +481,7 @@ body {
     min-height: 48px;
     border-radius: var(--radius-md);
     border: 1px solid var(--border);
-    padding: 0.95rem 1rem;
+    padding: 0.95rem 3rem;
 }
 
 .form-actions {
