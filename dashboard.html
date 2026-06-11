@@ -13,19 +13,16 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
-<body>
+<body class="dashboard-page">
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
     
     <!-- App Wrapper -->
-    <div class="app-wrapper">
+    <div class="app-wrapper dashboard-shell">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -48,7 +45,19 @@
                     <li class="sidebar-link">
                         <a href="stats.html">
                             <i class="fas fa-chart-bar"></i>
-                            <span>Statistics</span>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-link">
+                        <a href="#goals-panel">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Goals</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-link">
+                        <a href="#achievements-panel">
+                            <i class="fas fa-trophy"></i>
+                            <span>Achievements</span>
                         </a>
                     </li>
                     <li class="sidebar-link">
@@ -83,11 +92,13 @@
                 </button>
                 
                 <div class="page-title">
+                    <span class="page-kicker">Habit tracker</span>
                     <h1>Dashboard</h1>
                     <p id="current-date">Loading date...</p>
                 </div>
                 
                 <div class="user-actions">
+                    <div class="rank-pill" id="whale-rank">Whale Rank: Bronze</div>
                     <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle dark mode">
                         <i class="fas fa-moon"></i>
                     </button>
@@ -111,93 +122,142 @@
             
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <section class="dashboard-welcome">
-                    <div class="welcome-card">
-                        <div class="welcome-copy">
-                            <span class="welcome-badge">Welcome back</span>
-                            <h2 id="dashboard-greeting">Hi there, champion!</h2>
-                            <p id="dashboard-subtitle">Today is a great day to build one more habit. Keep the streak alive.</p>
-                        </div>
-                        <div class="welcome-actions">
+                <section class="hero-panel">
+                    <div class="hero-copy">
+                        <span class="hero-badge">Calm momentum</span>
+                        <h2 id="dashboard-greeting">Good morning, champion 👋</h2>
+                        <p id="dashboard-subtitle">Small habits become big results. Keep your ocean steady and your streak alive.</p>
+
+                        <div class="hero-actions">
                             <button class="btn primary-btn" id="quick-add-habit">
                                 <i class="fas fa-plus"></i>
                                 Add Habit
                             </button>
                             <button class="btn secondary-btn" id="quick-view-stats">
                                 <i class="fas fa-chart-line"></i>
-                                View Insights
+                                View Analytics
                             </button>
                         </div>
-                    </div>
-                </section>
-                <!-- Motivational Quote -->
-                <section class="quote-card">
-                    <div class="quote-bg">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p id="daily-quote">"The secret of getting ahead is getting started."</p>
-                </section>
-                
-                <!-- Progress Summary Cards -->
-                <section class="summary-cards">
-                    <div class="summary-card">
-                        <div class="summary-icon">
-                            <i class="fas fa-check-circle"></i>
+
+                        <div class="quote-strip">
+                            <i class="fas fa-quote-left"></i>
+                            <p id="daily-quote">"The secret of getting ahead is getting started."</p>
                         </div>
-                        <div class="summary-data">
-                            <h3>Daily Progress</h3>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar-outer">
-                                    <div class="progress-bar-inner" id="daily-progress-bar" style="width: 0%"></div>
-                                </div>
-                                <span id="daily-progress-text">0%</span>
+
+                        <div class="hero-metrics">
+                            <div class="hero-metric">
+                                <span>Current streak</span>
+                                <strong id="hero-streak">0 days</strong>
+                            </div>
+                            <div class="hero-metric">
+                                <span>Completion</span>
+                                <strong id="hero-completion">0%</strong>
+                            </div>
+                            <div class="hero-metric">
+                                <span>Level</span>
+                                <strong id="hero-level">Wave Starter</strong>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="summary-card">
-                        <div class="summary-icon">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <div class="summary-data">
-                            <h3>Current Streak</h3>
-                            <div class="streak-count">
-                                <span id="streak-count">0</span>
-                                <span>days</span>
+
+                    <div class="hero-visual">
+                        <div class="whale-card">
+                            <div class="whale-bubbles">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="whale-illustration" aria-hidden="true">
+                                <svg viewBox="0 0 520 360" role="img" aria-label="Whale illustration">
+                                    <defs>
+                                        <linearGradient id="whaleBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#7ee7de" />
+                                            <stop offset="45%" stop-color="#33c6ba" />
+                                            <stop offset="100%" stop-color="#0f6ea7" />
+                                        </linearGradient>
+                                        <linearGradient id="whaleShadowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="rgba(255,255,255,0.16)" />
+                                            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                                        </linearGradient>
+                                    </defs>
+                                    <ellipse cx="270" cy="185" rx="160" ry="95" fill="url(#whaleBodyGradient)" />
+                                    <path d="M119 180c-28-13-58-34-84-63 31 1 60 10 85 27" fill="url(#whaleBodyGradient)" />
+                                    <path d="M363 182c25-22 57-34 89-35-11 24-11 49 0 74-32-1-64-13-89-39z" fill="url(#whaleBodyGradient)" />
+                                    <path d="M204 264c29 17 71 24 111 16 30-6 58-21 79-42" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="7" stroke-linecap="round" />
+                                    <path d="M186 160c18-27 48-43 86-49 54-8 94 6 122 39" fill="none" stroke="url(#whaleShadowGradient)" stroke-width="48" stroke-linecap="round" opacity="0.45" />
+                                    <path d="M220 122c-12-20-19-39-18-57 19 11 34 28 45 48" fill="rgba(255,255,255,0.24)" />
+                                    <circle cx="238" cy="170" r="7.5" fill="#08304d" />
+                                    <path d="M255 178c10 9 25 13 40 11" fill="none" stroke="#08304d" stroke-width="5" stroke-linecap="round" />
+                                    <circle cx="324" cy="98" r="5" fill="rgba(255,255,255,0.55)" />
+                                    <circle cx="344" cy="78" r="3.8" fill="rgba(255,255,255,0.45)" />
+                                </svg>
+                            </div>
+                            <div class="whale-stat">
+                                <span>Whale Rank</span>
+                                <strong id="whale-rank-inline">Bronze Current</strong>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="summary-card">
-                        <div class="summary-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <div class="summary-data">
-                            <h3>Completion Rate</h3>
-                            <div class="completion-rate">
-                                <span id="completion-rate">0%</span>
-                                <span>last 7 days</span>
+                        <div class="small-metrics">
+                            <div class="small-metric">
+                                <span>Today</span>
+                                <strong id="today-habit-count">0/0</strong>
+                            </div>
+                            <div class="small-metric">
+                                <span>Weekly score</span>
+                                <strong id="weekly-score">0%</strong>
                             </div>
                         </div>
                     </div>
                 </section>
-                
-                <!-- Habit List Section -->
-                <section class="habit-list-section">
-                    <div class="section-header">
-                        <h2>Today's Habits</h2>
+
+                <section class="stats-grid" aria-label="Key metrics">
+                    <article class="stat-card stat-card-accent">
+                        <span class="stat-icon"><i class="fas fa-check-circle"></i></span>
+                        <div>
+                            <p>Today's Habits</p>
+                            <h3 id="today-habit-summary">0/0 Complete</h3>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon"><i class="fas fa-wave-square"></i></span>
+                        <div>
+                            <p>Weekly Score</p>
+                            <h3 id="weekly-score-card">0%</h3>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon"><i class="fas fa-fire"></i></span>
+                        <div>
+                            <p>Best Streak</p>
+                            <h3 id="best-streak-value">0 Days</h3>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon"><i class="fas fa-gem"></i></span>
+                        <div>
+                            <p>XP Points</p>
+                            <h3 id="xp-points">0 XP</h3>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="habit-list-section glass-panel" id="goals-panel">
+                    <div class="section-header section-header-inline">
+                        <div>
+                            <span class="section-label">Today's habits</span>
+                            <h2>Habit cards</h2>
+                        </div>
                         <button class="add-habit-btn" id="add-habit-btn">
                             <i class="fas fa-plus"></i>
                             Add Habit
                         </button>
                     </div>
-                    
-                    <div class="habit-list" id="habit-list">
-                        <!-- Habits will be dynamically inserted here -->
+
+                    <div class="habit-list habit-grid" id="habit-list">
                         <div class="empty-state">
-                            <img src="./images/image/habbit.png" alt="Start your habit journey">
+                            <div class="empty-icon">🐋</div>
                             <h3>No habits added yet</h3>
-                            <p>Add your first habit to start tracking your progress</p>
+                            <p>Add your first habit to start tracking your progress.</p>
                             <button class="btn primary-btn add-habit-btn">
                                 <i class="fas fa-plus"></i>
                                 Add Your First Habit
@@ -205,13 +265,80 @@
                         </div>
                     </div>
                 </section>
-                
-                <!-- Weekly Overview -->
-                <section class="weekly-overview">
-                    <h2>Weekly Overview</h2>
-                    <div class="chart-container">
-                        <canvas id="weekly-chart"></canvas>
-                    </div>
+
+                <section class="insight-grid">
+                    <article class="glass-panel heatmap-panel">
+                        <div class="section-header section-header-inline">
+                            <div>
+                                <span class="section-label">Consistency</span>
+                                <h2>Habit heatmap</h2>
+                            </div>
+                            <div class="heatmap-legend">
+                                <span class="legend-item"><i></i>Low</span>
+                                <span class="legend-item legend-strong"><i></i>High</span>
+                            </div>
+                        </div>
+                        <div class="heatmap-days">
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                            <span>Sun</span>
+                        </div>
+                        <div id="activity-heatmap" class="heatmap-grid" aria-label="Habit heatmap"></div>
+                    </article>
+
+                    <article class="glass-panel panel-stack" id="achievements-panel">
+                        <div class="section-header section-header-inline">
+                            <div>
+                                <span class="section-label">Rewards</span>
+                                <h2>Achievements</h2>
+                            </div>
+                        </div>
+                        <div id="achievement-list" class="achievement-list">
+                            <div class="achievement-item unlocked">
+                                <span>🐋</span>
+                                <div>
+                                    <strong>First Dive</strong>
+                                    <p>Created your first habit.</p>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <span>🔥</span>
+                                <div>
+                                    <strong>7 Day Streak</strong>
+                                    <p>Keep the wave going for a week.</p>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <span>⚡</span>
+                                <div>
+                                    <strong>Consistency Master</strong>
+                                    <p>Hit 80% weekly completion.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-panel panel-stack">
+                        <div class="section-header section-header-inline">
+                            <div>
+                                <span class="section-label">Activity</span>
+                                <h2>Recent activity</h2>
+                            </div>
+                        </div>
+                        <div id="recent-activity-list" class="activity-list">
+                            <div class="activity-item">
+                                <span class="activity-dot"></span>
+                                <div>
+                                    <strong>Ready for a new session</strong>
+                                    <p>Your latest updates will appear here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
                 </section>
             </div>
         </main>

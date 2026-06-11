@@ -66,14 +66,87 @@ const weeklyChartCanvas = document.getElementById('weekly-chart');
 const customCursor = document.querySelector('.custom-cursor');
 const userMenu = document.querySelector('.user-menu');
 const dropdownContent = document.querySelector('.dropdown-content');
+const todayHabitCountElement = document.getElementById('today-habit-count');
+const todayHabitSummaryElement = document.getElementById('today-habit-summary');
+const weeklyScoreElement = document.getElementById('weekly-score');
+const weeklyScoreCardElement = document.getElementById('weekly-score-card');
+const bestStreakValueElement = document.getElementById('best-streak-value');
+const xpPointsElement = document.getElementById('xp-points');
+const heroStreakElement = document.getElementById('hero-streak');
+const heroCompletionElement = document.getElementById('hero-completion');
+const heroLevelElement = document.getElementById('hero-level');
+const whaleRankElement = document.getElementById('whale-rank');
+const whaleRankInlineElement = document.getElementById('whale-rank-inline');
+const activityHeatmapElement = document.getElementById('activity-heatmap');
+const recentActivityListElement = document.getElementById('recent-activity-list');
+const achievementListElement = document.getElementById('achievement-list');
 
 // State
 let habits = [];
 let habitHistory = {};
 let streak = 0;
+let bestStreak = 0;
 let lastCompletionDate = null;
 let weeklyData = [0, 0, 0, 0, 0, 0, 0];
 let weeklyChart = null;
+
+function buildStarterData() {
+    const today = new Date();
+    const formatDate = (offset) => {
+        const date = new Date(today);
+        date.setDate(date.getDate() - offset);
+        return date.toISOString().split('T')[0];
+    };
+
+    return {
+        habits: [
+            {
+                id: 'starter-water',
+                title: 'Morning Water',
+                category: 'water',
+                reminder: '08:00',
+                completed: true,
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 'starter-dsa',
+                title: 'DSA Practice',
+                category: 'learning',
+                reminder: '19:30',
+                completed: true,
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 'starter-walk',
+                title: 'Evening Walk',
+                category: 'health',
+                reminder: '18:00',
+                completed: false,
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 'starter-reading',
+                title: 'Reading 20 Pages',
+                category: 'mindfulness',
+                reminder: '21:15',
+                completed: true,
+                createdAt: new Date().toISOString()
+            }
+        ],
+        history: {
+            [formatDate(0)]: { completedCount: 3, totalCount: 4, allCompleted: false },
+            [formatDate(1)]: { completedCount: 4, totalCount: 4, allCompleted: true },
+            [formatDate(2)]: { completedCount: 3, totalCount: 4, allCompleted: false },
+            [formatDate(3)]: { completedCount: 4, totalCount: 4, allCompleted: true },
+            [formatDate(4)]: { completedCount: 2, totalCount: 4, allCompleted: false },
+            [formatDate(5)]: { completedCount: 4, totalCount: 4, allCompleted: true },
+            [formatDate(6)]: { completedCount: 3, totalCount: 4, allCompleted: false }
+        },
+        streak: 5,
+        bestStreak: 12,
+        lastCompletionDate: new Date(today).toISOString()
+    };
+}
 
 // Initialize the application
 function init() {
@@ -83,7 +156,6 @@ function init() {
     updateQuote();
     renderHabits();
     updateProgress();
-    initializeChart();
     setupEventListeners();
     initTheme();
     setupMobileInteraction();
@@ -107,6 +179,8 @@ function updateDashboardHeader() {
     if (dailyQuoteElement) {
         updateQuote();
     }
+
+    updateDashboardMetrics();
 }
 
 // Set current date
@@ -155,9 +229,26 @@ function loadData() {
         // Load other state data
         habitHistory = parsedData.history || {};
         streak = parsedData.streak || 0;
+        bestStreak = parsedData.bestStreak || streak || 0;
         lastCompletionDate = parsedData.lastCompletionDate ? new Date(parsedData.lastCompletionDate) : null;
         
         updateWeeklyData();
+    } else {
+        const starterData = buildStarterData();
+        habits = starterData.habits;
+        habitHistory = starterData.history;
+        streak = starterData.streak;
+        bestStreak = starterData.bestStreak;
+        lastCompletionDate = new Date(starterData.lastCompletionDate);
+        updateWeeklyData();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            habits,
+            history: habitHistory,
+            streak,
+            bestStreak,
+            lastCompletionDate: starterData.lastCompletionDate,
+            date: new Date().toDateString()
+        }));
     }
 }
 
@@ -197,6 +288,8 @@ function updateHistoryWithPreviousDay(prevData) {
             
             lastCompletionDate = prevDate;
         }
+
+        bestStreak = Math.max(bestStreak, streak);
     } else {
         // Not all habits were completed, reset streak
         streak = 0;
@@ -210,6 +303,7 @@ function saveData() {
         habits: habits,
         history: habitHistory,
         streak: streak,
+        bestStreak: bestStreak,
         lastCompletionDate: lastCompletionDate ? lastCompletionDate.toISOString() : null,
         date: new Date().toDateString()
     };
@@ -316,11 +410,19 @@ function updateProgress() {
     const percentage = totalHabits > 0 ? Math.round((completedHabits / totalHabits) * 100) : 0;
     
     // Update progress bar
-    dailyProgressBar.style.width = `${percentage}%`;
-    dailyProgressText.textContent = `${percentage}%`;
+    if (dailyProgressBar) {
+        dailyProgressBar.style.width = `${percentage}%`;
+    }
+
+    if (dailyProgressText) {
+        dailyProgressText.textContent = `${percentage}%`;
+    }
     
     // Update streak
-    streakCountElement.textContent = streak;
+    if (streakCountElement) {
+        streakCountElement.textContent = streak;
+    }
+    bestStreak = Math.max(bestStreak, streak);
     
     // Check if all habits are completed
     if (totalHabits > 0 && completedHabits === totalHabits) {
@@ -333,6 +435,7 @@ function updateProgress() {
             // Increment streak for consecutive days
             if (streak > 0) {
                 streak++;
+                bestStreak = Math.max(bestStreak, streak);
                 
                 // Celebrate milestone streaks
                 if (streak === 7 || streak === 30 || streak === 100) {
@@ -340,6 +443,7 @@ function updateProgress() {
                 }
             } else {
                 streak = 1;
+                bestStreak = Math.max(bestStreak, streak);
             }
             
             saveData();
@@ -347,7 +451,54 @@ function updateProgress() {
     }
     
     // Update completion rate
-    updateCompletionRate();
+    const weeklyScore = updateCompletionRate();
+
+    if (bestStreakValueElement) {
+        bestStreakValueElement.textContent = `${Math.max(bestStreak, streak)} Days`;
+    }
+
+    if (xpPointsElement) {
+        const xpPoints = (completedHabits * 25) + (streak * 20) + (Math.max(bestStreak, streak) * 10) + Math.round(weeklyScore);
+        xpPointsElement.textContent = `${xpPoints} XP`;
+    }
+
+    if (todayHabitCountElement) {
+        todayHabitCountElement.textContent = `${completedHabits}/${totalHabits}`;
+    }
+
+    if (todayHabitSummaryElement) {
+        todayHabitSummaryElement.textContent = `${completedHabits}/${totalHabits} Complete`;
+    }
+
+    if (weeklyScoreElement) {
+        weeklyScoreElement.textContent = `${weeklyScore}%`;
+    }
+
+    if (weeklyScoreCardElement) {
+        weeklyScoreCardElement.textContent = `${weeklyScore}%`;
+    }
+
+    if (heroStreakElement) {
+        heroStreakElement.textContent = `${streak} Days`;
+    }
+
+    if (heroCompletionElement) {
+        heroCompletionElement.textContent = `${percentage}%`;
+    }
+
+    if (heroLevelElement) {
+        heroLevelElement.textContent = getLevelLabel(streak, weeklyScore);
+    }
+
+    const whaleRank = getWhaleRank(streak, weeklyScore);
+    if (whaleRankElement) {
+        whaleRankElement.textContent = `Whale Rank: ${whaleRank}`;
+    }
+    if (whaleRankInlineElement) {
+        whaleRankInlineElement.textContent = `${whaleRank} Current`;
+    }
+
+    renderDashboardInsights();
 }
 
 // Update completion rate for last 7 days
@@ -370,7 +521,147 @@ function updateCompletionRate() {
     
     // Calculate rate
     const rate = totalHabits > 0 ? Math.round((totalCompleted / totalHabits) * 100) : 0;
-    completionRateElement.textContent = `${rate}%`;
+    if (completionRateElement) {
+        completionRateElement.textContent = `${rate}%`;
+    }
+    return rate;
+}
+
+function formatReminderTime(reminder) {
+    if (!reminder) return '';
+
+    const [hourText, minuteText] = reminder.split(':');
+    const hour = parseInt(hourText, 10);
+    const minute = minuteText || '00';
+    const suffix = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12;
+
+    return `${displayHour}:${minute} ${suffix}`;
+}
+
+function getLevelLabel(currentStreak, weeklyScore) {
+    if (currentStreak >= 30 || weeklyScore >= 95) return 'Wave Master';
+    if (currentStreak >= 14 || weeklyScore >= 85) return 'Tide Leader';
+    if (currentStreak >= 7 || weeklyScore >= 70) return 'Wave Builder';
+    return 'Wave Starter';
+}
+
+function getWhaleRank(currentStreak, weeklyScore) {
+    if (currentStreak >= 30 || weeklyScore >= 95) return 'Platinum';
+    if (currentStreak >= 14 || weeklyScore >= 85) return 'Gold';
+    if (currentStreak >= 7 || weeklyScore >= 70) return 'Silver';
+    return 'Bronze';
+}
+
+function renderDashboardInsights() {
+    renderHeatmap();
+    renderRecentActivity();
+    renderAchievements();
+}
+
+function updateDashboardMetrics() {
+    renderDashboardInsights();
+}
+
+function renderHeatmap() {
+    if (!activityHeatmapElement) return;
+
+    const cells = [];
+    const today = new Date();
+
+    for (let i = 34; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        const dateString = date.toISOString().split('T')[0];
+        const entry = habitHistory[dateString];
+        const totalCount = entry ? entry.totalCount : 0;
+        const completedCount = entry ? entry.completedCount : 0;
+        const intensity = totalCount > 0 ? Math.round((completedCount / totalCount) * 4) : 0;
+        const level = Math.max(0, Math.min(4, intensity));
+        const label = totalCount > 0 ? `${date.toDateString()}: ${completedCount}/${totalCount} completed` : `${date.toDateString()}: no habits recorded`;
+
+        cells.push(`<span class="heatmap-cell level-${level}" title="${label}"></span>`);
+    }
+
+    activityHeatmapElement.innerHTML = cells.join('');
+}
+
+function renderRecentActivity() {
+    if (!recentActivityListElement) return;
+
+    const sortedDays = Object.keys(habitHistory)
+        .sort((a, b) => new Date(b) - new Date(a))
+        .slice(0, 4);
+
+    if (sortedDays.length === 0) {
+        recentActivityListElement.innerHTML = `
+            <div class="activity-item">
+                <span class="activity-dot"></span>
+                <div>
+                    <strong>Fresh start</strong>
+                    <p>Your recent habit activity will show here.</p>
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    recentActivityListElement.innerHTML = sortedDays.map(dateString => {
+        const entry = habitHistory[dateString];
+        const completionRate = entry.totalCount > 0 ? Math.round((entry.completedCount / entry.totalCount) * 100) : 0;
+
+        return `
+            <div class="activity-item">
+                <span class="activity-dot"></span>
+                <div>
+                    <strong>${entry.completedCount}/${entry.totalCount} habits completed</strong>
+                    <p>${new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} · ${completionRate}% completion</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderAchievements() {
+    if (!achievementListElement) return;
+
+    const weeklyScore = parseInt((weeklyScoreCardElement?.textContent || '0').replace('%', ''), 10) || 0;
+    const achievements = [
+        {
+            icon: '🐋',
+            title: 'First Dive',
+            description: 'Created your first habit.',
+            unlocked: habits.length > 0
+        },
+        {
+            icon: '🔥',
+            title: '7 Day Streak',
+            description: 'Hold a streak for a full week.',
+            unlocked: streak >= 7
+        },
+        {
+            icon: '⚡',
+            title: 'Consistency Master',
+            description: 'Reach 80% weekly completion.',
+            unlocked: weeklyScore >= 80
+        },
+        {
+            icon: '🏆',
+            title: 'Ocean Legend',
+            description: 'Hit a 30 day streak.',
+            unlocked: streak >= 30
+        }
+    ];
+
+    achievementListElement.innerHTML = achievements.map(item => `
+        <div class="achievement-item ${item.unlocked ? 'unlocked' : ''}">
+            <span>${item.icon}</span>
+            <div>
+                <strong>${item.title}</strong>
+                <p>${item.description}</p>
+            </div>
+        </div>
+    `).join('');
 }
 
 // Toggle habit completion status
@@ -389,14 +680,83 @@ function toggleHabit(id) {
         if (habits[habitIndex].completed) {
             const habitElement = document.querySelector(`.habit-item[data-id="${id}"]`);
             if (habitElement) {
-                const checkbox = habitElement.querySelector('.habit-checkbox');
-                checkbox.classList.add('animate-bounce');
+                const toggleButton = habitElement.querySelector('.habit-toggle-btn');
+                if (!toggleButton) return;
+
+                toggleButton.classList.add('animate-bounce');
                 setTimeout(() => {
-                    checkbox.classList.remove('animate-bounce');
+                    toggleButton.classList.remove('animate-bounce');
                 }, 500);
             }
         }
     }
+}
+
+// Create a single habit element
+function createHabitElement(habit) {
+    const habitElement = document.createElement('div');
+    habitElement.className = `habit-item habit-card ${habit.completed ? 'completed' : ''}`;
+    habitElement.dataset.id = habit.id;
+
+    const categoryClass = habit.category || 'other';
+    const iconMap = {
+        health: '💪',
+        productivity: '💼',
+        mindfulness: '🧘',
+        learning: '📚',
+        exercise: '🏃',
+        read: '📖',
+        water: '💧',
+        meditation: '🌊',
+        other: '⭐'
+    };
+
+    const progressValue = habit.completed ? 100 : 0;
+    const reminderLabel = habit.reminder ? `Reminder ${formatReminderTime(habit.reminder)}` : 'Daily habit';
+
+    habitElement.innerHTML = `
+        <div class="habit-card-top">
+            <div class="habit-badge ${categoryClass}">${iconMap[categoryClass] || '⭐'}</div>
+            <button type="button" class="habit-edit-btn" aria-label="Edit habit">
+                <i class="fas fa-pen"></i>
+            </button>
+        </div>
+        <div class="habit-card-body">
+            <h3 class="habit-name">${habit.title || habit.name}</h3>
+            <p class="habit-meta">${reminderLabel}</p>
+            <div class="habit-progress">
+                <span style="width: ${progressValue}%"></span>
+            </div>
+            <div class="habit-card-footer">
+                <span>${habit.completed ? 'Completed' : 'In progress'}</span>
+                <strong>${habit.completed ? '100%' : '0%'}</strong>
+            </div>
+        </div>
+        <button type="button" class="habit-toggle-btn ${habit.completed ? 'is-complete' : ''}">
+            ${habit.completed ? 'Completed' : 'Complete'}
+        </button>
+    `;
+
+    habitElement.addEventListener('click', () => toggleHabit(habit.id));
+
+    const editButton = habitElement.querySelector('.habit-edit-btn');
+    const toggleButton = habitElement.querySelector('.habit-toggle-btn');
+
+    if (editButton) {
+        editButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            openEditModal(habit.id);
+        });
+    }
+
+    if (toggleButton) {
+        toggleButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleHabit(habit.id);
+        });
+    }
+
+    return habitElement;
 }
 
 // Open add habit modal
@@ -410,15 +770,13 @@ function openAddModal() {
 // Open edit habit modal
 function openEditModal(id) {
     const habit = habits.find(h => h.id === id);
-    
+
     if (habit) {
-        // Fill the form with habit data
         document.getElementById('edit-habit-id').value = habit.id;
         document.getElementById('edit-habit-name').value = habit.title || habit.name;
         document.getElementById('edit-habit-category').value = habit.category;
         document.getElementById('edit-habit-reminder').value = habit.reminder || '';
-        
-        // Show the modal
+
         editHabitModal.classList.add('show');
         setTimeout(() => {
             document.getElementById('edit-habit-name').focus();
@@ -430,8 +788,7 @@ function openEditModal(id) {
 function closeModals() {
     addHabitModal.classList.remove('show');
     editHabitModal.classList.remove('show');
-    
-    // Reset forms
+
     addHabitForm.reset();
     editHabitForm.reset();
 }
@@ -439,11 +796,11 @@ function closeModals() {
 // Add new habit
 function addHabit(e) {
     e.preventDefault();
-    
+
     const name = document.getElementById('habit-name').value.trim();
     const category = document.getElementById('habit-category').value;
     const reminder = document.getElementById('habit-reminder').value;
-    
+
     if (name) {
         const newHabit = {
             id: Date.now().toString(),
@@ -453,16 +810,13 @@ function addHabit(e) {
             completed: false,
             createdAt: new Date().toISOString()
         };
-        
-        // Add to habits array
+
         habits.push(newHabit);
-        
-        // Update UI and save
+
         renderHabits();
         saveData();
         closeModals();
-        
-        // Animate the newly added habit
+
         setTimeout(() => {
             const newElement = document.querySelector(`.habit-item[data-id="${newHabit.id}"]`);
             if (newElement) {

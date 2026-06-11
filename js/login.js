@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
             savedUser.email === email &&
             savedUser.password === password
         ) {
-            alert('Login Successful!');
             localStorage.setItem('loggedIn', 'true');
             window.location.href = 'dashboard.html';
         } else {
