@@ -7,6 +7,8 @@ const SIDEBAR_ITEMS = [
     { label: 'Logout', icon: 'fa-sign-out-alt', href: 'javascript:void(0)', page: 'logout', action: 'logout' }
 ];
 
+const SIDEBAR_STATE_KEY = 'niyam-sidebar-open';
+
 function renderSidebar() {
     const sidebar = document.querySelector('[data-sidebar]');
 
@@ -49,6 +51,9 @@ function renderSidebar() {
             </button>
         </div>
     `;
+
+    applySidebarState(sidebar);
+    bindSidebarControls(sidebar);
 }
 
 function inferPageFromPath() {
@@ -66,6 +71,48 @@ function isActiveItem(currentPage, item) {
     }
 
     return item.page === currentPage;
+}
+
+function applySidebarState(sidebar) {
+    const isMobile = window.innerWidth <= 1024;
+    const savedState = localStorage.getItem(SIDEBAR_STATE_KEY);
+    const shouldShow = isMobile ? savedState === 'true' : true;
+
+    sidebar.classList.toggle('show', shouldShow && isMobile);
+}
+
+function bindSidebarControls(sidebar) {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebarClose = sidebar.querySelector('.sidebar-close');
+
+    if (menuToggle && !menuToggle.dataset.sidebarBound) {
+        menuToggle.dataset.sidebarBound = 'true';
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('show');
+            localStorage.setItem(SIDEBAR_STATE_KEY, 'true');
+        });
+    }
+
+    if (sidebarClose && !sidebarClose.dataset.sidebarBound) {
+        sidebarClose.dataset.sidebarBound = 'true';
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            localStorage.setItem(SIDEBAR_STATE_KEY, 'false');
+        });
+    }
+
+    if (!sidebar.dataset.sidebarBound) {
+        sidebar.dataset.sidebarBound = 'true';
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024 &&
+                sidebar.classList.contains('show') &&
+                !sidebar.contains(e.target) &&
+                e.target !== menuToggle) {
+                sidebar.classList.remove('show');
+                localStorage.setItem(SIDEBAR_STATE_KEY, 'false');
+            }
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', renderSidebar);
