@@ -17,71 +17,13 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
-<body class="dashboard-page">
+<body class="dashboard-page" data-page="dashboard">
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
     
     <!-- App Wrapper -->
     <div class="app-wrapper dashboard-shell">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="index.html" class="logo">
-                    <span>Niyam</span>
-                </a>
-                <button class="sidebar-close" aria-label="Close sidebar">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <ul class="sidebar-links">
-                    <li class="sidebar-link active">
-                        <a href="dashboard.html">
-                            <i class="fas fa-home"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-link">
-                        <a href="stats.html">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>Analytics</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-link">
-                        <a href="#goals-panel">
-                            <i class="fas fa-bullseye"></i>
-                            <span>Goals</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-link">
-                        <a href="#achievements-panel">
-                            <i class="fas fa-trophy"></i>
-                            <span>Achievements</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-link">
-                        <a href="settings.html">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-link">
-                        <a href="javascript:void(0)" onclick="logout()">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            
-            <div class="sidebar-footer">
-                <button id="sidebar-theme-toggle">
-                    <i class="fas fa-moon"></i>
-                    <span>Dark Mode</span>
-                </button>
-            </div>
-        </aside>
+        <aside class="sidebar" data-sidebar></aside>
         
         <!-- Main Content -->
         <main class="main-content">
@@ -176,8 +118,8 @@
                                             <stop offset="100%" stop-color="#0f6ea7" />
                                         </linearGradient>
                                         <linearGradient id="whaleShadowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                            <stop offset="0%" stop-color="rgba(255,255,255,0.16)" />
-                                            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16" />
+                                            <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
                                         </linearGradient>
                                     </defs>
                                     <ellipse cx="270" cy="185" rx="160" ry="95" fill="url(#whaleBodyGradient)" />
@@ -185,11 +127,11 @@
                                     <path d="M363 182c25-22 57-34 89-35-11 24-11 49 0 74-32-1-64-13-89-39z" fill="url(#whaleBodyGradient)" />
                                     <path d="M204 264c29 17 71 24 111 16 30-6 58-21 79-42" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="7" stroke-linecap="round" />
                                     <path d="M186 160c18-27 48-43 86-49 54-8 94 6 122 39" fill="none" stroke="url(#whaleShadowGradient)" stroke-width="48" stroke-linecap="round" opacity="0.45" />
-                                    <path d="M220 122c-12-20-19-39-18-57 19 11 34 28 45 48" fill="rgba(255,255,255,0.24)" />
+                                    <path d="M220 122c-12-20-19-39-18-57 19 11 34 28 45 48" fill="#ffffff" fill-opacity="0.24" />
                                     <circle cx="238" cy="170" r="7.5" fill="#08304d" />
                                     <path d="M255 178c10 9 25 13 40 11" fill="none" stroke="#08304d" stroke-width="5" stroke-linecap="round" />
-                                    <circle cx="324" cy="98" r="5" fill="rgba(255,255,255,0.55)" />
-                                    <circle cx="344" cy="78" r="3.8" fill="rgba(255,255,255,0.45)" />
+                                    <circle cx="324" cy="98" r="5" fill="#ffffff" fill-opacity="0.55" />
+                                    <circle cx="344" cy="78" r="3.8" fill="#ffffff" fill-opacity="0.45" />
                                 </svg>
                             </div>
                             <div class="whale-stat">
@@ -432,6 +374,7 @@
     
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="js/sidebar.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html> 

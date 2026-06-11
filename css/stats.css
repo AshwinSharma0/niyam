@@ -29,15 +29,15 @@
 }
 
 .time-range-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(79, 209, 197, 0.08);
 }
 
 .dark-theme .time-range-btn:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(79, 209, 197, 0.12);
 }
 
 .time-range-btn.active {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
 }
 
@@ -78,9 +78,11 @@
 /* Stats Cards */
 .stats-card {
     background-color: var(--card-bg);
-    border-radius: var(--radius-lg);
+    border-radius: 20px;
     padding: 1.5rem;
-    box-shadow: 0 5px 15px var(--shadow);
+    box-shadow: 0 18px 36px var(--shadow);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(18px);
 }
 
 .stats-card-header {
@@ -115,17 +117,17 @@
 }
 
 .chart-type-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(79, 209, 197, 0.08);
 }
 
 .dark-theme .chart-type-btn:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(79, 209, 197, 0.12);
 }
 
 .chart-type-btn.active {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
-    border-color: var(--primary);
+    border-color: var(--secondary);
 }
 
 /* Chart Container */
@@ -167,7 +169,7 @@
 }
 
 #habit-calendar .fc-day-today {
-    background-color: rgba(91, 33, 182, 0.1) !important;
+    background-color: rgba(79, 209, 197, 0.12) !important;
 }
 
 #habit-calendar .fc-header-toolbar {
@@ -182,8 +184,8 @@
 }
 
 #habit-calendar .fc-button-active {
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important;
+    border-color: var(--secondary) !important;
     color: white !important;
 }
 
@@ -281,15 +283,15 @@
 
 /* Custom colors for specific insights */
 .insight-item:nth-child(2) .insight-icon {
-    background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+    background: linear-gradient(135deg, #0b2545 0%, #4fd1c5 100%);
 }
 
 .insight-item:nth-child(3) .insight-icon {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #4fd1c5 0%, #bee3db 100%);
 }
 
 .insight-item:nth-child(4) .insight-icon {
-    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    background: linear-gradient(135deg, #173f6b 0%, #0b2545 100%);
 }
 
 /* FullCalendar specific fixes */

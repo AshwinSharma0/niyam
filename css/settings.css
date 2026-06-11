@@ -9,10 +9,12 @@
 /* Settings Section */
 .settings-section {
     background-color: var(--card-bg);
-    border-radius: var(--radius-lg);
+    border-radius: 20px;
     padding: 1.5rem;
     margin-bottom: 2rem;
-    box-shadow: 0 5px 15px var(--shadow);
+    box-shadow: 0 18px 36px var(--shadow);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(18px);
 }
 
 .settings-section h2 {
@@ -50,7 +52,7 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -108,7 +110,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: rgba(79, 209, 197, 0.18);
     transition: .4s;
     border-radius: 34px;
 }
@@ -126,11 +128,11 @@
 }
 
 input:checked + .toggle-slider {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 }
 
 input:focus + .toggle-slider {
-    box-shadow: 0 0 1px var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.18);
 }
 
 input:checked + .toggle-slider:before {
@@ -151,7 +153,7 @@ input:checked + .toggle-slider:before {
     align-items: center;
     cursor: pointer;
     padding: 0.5rem;
-    border-radius: var(--radius-md);
+    border-radius: 20px;
     transition: all var(--transition-fast);
 }
 
@@ -161,7 +163,7 @@ input:checked + .toggle-slider:before {
 
 .theme-option.active {
     background-color: var(--bg);
-    box-shadow: 0 2px 5px var(--shadow);
+    box-shadow: 0 18px 36px rgba(17, 59, 101, 0.12);
 }
 
 .theme-preview {
@@ -176,17 +178,17 @@ input:checked + .toggle-slider:before {
 }
 
 .theme-preview.light {
-    background-color: #ffffff;
-    color: #121212;
+    background: linear-gradient(135deg, #ffffff 0%, #bee3db 100%);
+    color: #0b2545;
 }
 
 .theme-preview.dark {
-    background-color: #121212;
+    background: linear-gradient(135deg, #0b2545 0%, #102a43 100%);
     color: #ffffff;
 }
 
 .theme-preview.system {
-    background: linear-gradient(to right, #ffffff 50%, #121212 50%);
+    background: linear-gradient(to right, #f4fafb 50%, #102a43 50%);
 }
 
 .theme-preview i {
@@ -208,7 +210,7 @@ input:checked + .toggle-slider:before {
 .data-action {
     padding: 1.5rem;
     background-color: var(--bg);
-    border-radius: var(--radius-md);
+    border-radius: 20px;
     border: 1px solid var(--border);
 }
 
@@ -232,7 +234,7 @@ input:checked + .toggle-slider:before {
 .account-action {
     padding: 1.5rem;
     background-color: var(--bg);
-    border-radius: var(--radius-md);
+    border-radius: 20px;
     border: 1px solid var(--border);
 }
 
@@ -278,7 +280,7 @@ input:checked + .toggle-slider:before {
 }
 
 .credit-links a:hover {
-    color: var(--primary);
+    color: var(--secondary);
 }
 
 /* Confirmation Message */
@@ -306,7 +308,7 @@ input:checked + .toggle-slider:before {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    background-color: #2f855a;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
     padding: 1rem 2rem;
     border-radius: var(--radius-md);
@@ -331,12 +333,12 @@ input:checked + .toggle-slider:before {
 
 /* Danger Button */
 .danger-btn {
-    background-color: #e53e3e;
+    background-color: #0b2545;
     color: white;
 }
 
 .danger-btn:hover {
-    background-color: #c53030;
+    background-color: #173f6b;
 }
 
 /* Responsive */

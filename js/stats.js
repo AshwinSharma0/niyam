@@ -127,7 +127,7 @@ const THEME_KEY = 'niyam-theme';
             eventClick: function(info) {
                 alert(`Date: ${info.event.start.toDateString()}\nCompleted: ${info.event.title}`);
             },
-            eventColor: '#5b21b6',
+            eventColor: '#4fd1c5',
             contentHeight: 'auto',
             themeSystem: 'standard',
             viewDidMount: function() {
@@ -186,13 +186,13 @@ const THEME_KEY = 'niyam-theme';
             
             // Color based on completion percentage
             if (completionPercentage === 100) {
-                color = '#10b981'; // Perfect day - green
+                color = '#4fd1c5'; // Perfect day - cyan
             } else if (completionPercentage >= 75) {
-                color = '#6366f1'; // Great day - indigo
+                color = '#173f6b'; // Great day - navy
             } else if (completionPercentage >= 50) {
-                color = '#f59e0b'; // OK day - amber
+                color = '#bee3db'; // OK day - light teal
             } else {
-                color = '#ef4444'; // Poor day - red
+                color = '#0b2545'; // Lower completion - deep navy
             }
             
             events.push({
@@ -345,7 +345,7 @@ const THEME_KEY = 'niyam-theme';
                     borderWidth: 2,
                     tension: 0.3,
                     pointRadius: 4,
-                    pointBackgroundColor: '#5b21b6',
+                    pointBackgroundColor: '#4fd1c5',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
                     pointHoverRadius: 6,

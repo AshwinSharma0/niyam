@@ -82,13 +82,13 @@
 }
 
 .sidebar-nav li.active a {
-    background-color: rgba(91, 33, 182, 0.1);
+    background-color: rgba(79, 209, 197, 0.12);
     color: var(--primary);
     border-left-color: var(--primary);
 }
 
 .sidebar-nav a:hover {
-    background-color: rgba(91, 33, 182, 0.05);
+    background-color: rgba(79, 209, 197, 0.08);
 }
 
 .sidebar-nav a i {
@@ -284,8 +284,8 @@
 }
 
 .dropdown-content a:hover {
-    background-color: rgba(91, 33, 182, 0.05);
-    border-left-color: var(--primary);
+    background-color: rgba(79, 209, 197, 0.08);
+    border-left-color: var(--secondary);
 }
 
 .dark-theme .dropdown-content a:hover {
@@ -306,17 +306,17 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    background: linear-gradient(135deg, rgba(91, 33, 182, 0.12), rgba(16, 185, 129, 0.1));
-    border: 1px solid rgba(91, 33, 182, 0.12);
+    background: linear-gradient(135deg, rgba(11, 37, 69, 0.08), rgba(79, 209, 197, 0.12));
+    border: 1px solid rgba(79, 209, 197, 0.18);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
-    box-shadow: 0 20px 40px rgba(91, 33, 182, 0.08);
+    box-shadow: 0 20px 40px rgba(17, 59, 101, 0.12);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .welcome-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 28px 60px rgba(91, 33, 182, 0.12);
+    box-shadow: 0 28px 60px rgba(17, 59, 101, 0.16);
 }
 
 .welcome-copy {
@@ -328,7 +328,7 @@
     align-items: center;
     padding: 0.4rem 0.9rem;
     border-radius: var(--radius-full);
-    background-color: rgba(91, 33, 182, 0.14);
+    background-color: rgba(79, 209, 197, 0.14);
     color: var(--primary);
     font-size: 0.85rem;
     font-weight: 700;
@@ -374,7 +374,7 @@
     right: -25px;
     width: 120px;
     height: 120px;
-    background-color: rgba(91, 33, 182, 0.08);
+    background-color: rgba(79, 209, 197, 0.08);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -382,7 +382,7 @@
 }
 
 .quote-bg i {
-    color: rgba(91, 33, 182, 0.65);
+    color: rgba(17, 59, 101, 0.65);
     font-size: 2rem;
 }
 
@@ -418,7 +418,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(91, 33, 182, 0.08);
+    background-color: rgba(79, 209, 197, 0.08);
     color: var(--primary);
     display: flex;
     align-items: center;
@@ -443,7 +443,7 @@
     flex: 1;
     height: 12px;
     border-radius: 999px;
-    background-color: rgba(91, 33, 182, 0.1);
+    background-color: rgba(79, 209, 197, 0.12);
     overflow: hidden;
 }
 
@@ -661,7 +661,7 @@ body.dashboard-page .rank-pill {
     align-items: center;
     padding: 0.65rem 1rem;
     border-radius: 999px;
-    background: linear-gradient(135deg, rgba(15, 76, 129, 0.12), rgba(24, 183, 166, 0.14));
+    background: linear-gradient(135deg, rgba(17, 59, 101, 0.12), rgba(23, 183, 167, 0.14));
     color: var(--primary-dark);
     font-size: 0.92rem;
     font-weight: 700;
@@ -760,7 +760,7 @@ body.dashboard-page .quote-strip {
     padding: 1rem 1.1rem;
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(15, 76, 129, 0.08);
+    border: 1px solid rgba(17, 59, 101, 0.08);
 }
 
 body.dashboard-page .quote-strip i {
@@ -786,7 +786,7 @@ body.dashboard-page .small-metric {
     padding: 0.95rem 1rem;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.66);
-    border: 1px solid rgba(15, 76, 129, 0.08);
+    border: 1px solid rgba(17, 59, 101, 0.08);
 }
 
 body.dashboard-page .hero-metric span,

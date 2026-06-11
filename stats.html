@@ -24,53 +24,13 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/stats.css">
 </head>
-<body>
+<body class="dashboard-page" data-page="stats">
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
     
     <!-- App Wrapper -->
     <div class="app-wrapper">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="index.html" class="logo">
-                    <span>Niyam</span>
-                </a>
-                <button class="sidebar-close" aria-label="Close sidebar">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <ul>
-                    <li>
-                        <a href="dashboard.html">
-                            <i class="fas fa-home"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="stats.html">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>Statistics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="settings.html">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            
-            <div class="sidebar-footer">
-                <button id="sidebar-theme-toggle">
-                    <i class="fas fa-moon"></i>
-                    <span>Dark Mode</span>
-                </button>
-            </div>
-        </aside>
+        <aside class="sidebar" data-sidebar></aside>
         
         <!-- Main Content -->
         <main class="main-content">
@@ -280,6 +240,7 @@
     </div>
     
     <!-- Scripts -->
+    <script src="js/sidebar.js"></script>
     <script src="js/stats.js"></script>
     <script>
         // Ensure all links and functionality work correctly
